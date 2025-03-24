@@ -20,4 +20,18 @@ router.get('/report_detail', async (req, res) => {
     });
 });
 
+//Routes untuk handle report_page
+router.get('/report_page', async (req, res) => {
+    res.render('report/report_page', { title: 'Report Page' });
+});
+
+router.get('/report_page/:id', async (req, res) => {
+    ReportDetails.findById(req.params.id, (err, row) => {
+        if (err) {
+            return res.status(500).send('Error getting report');
+        }
+        res.render('report/report_page', { report: row });
+    });
+});
+
 module.exports = router;
