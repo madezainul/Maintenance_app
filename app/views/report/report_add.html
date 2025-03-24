@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>MAINTENANCE</title>
+	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+	<link rel="icon" href="" type="image/x-icon"/>
+	
+	<!-- Fonts and icons -->
+	<script src="/js/plugin/webfont/webfont.min.js"></script>
+	<script>
+		WebFont.load({
+			google: {"families":["Open+Sans:300,400,600,700"]},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands"], urls: ['/css/fonts.min.css']},
+			active: function() {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/fonts.min.css">
+</head>
+<body>
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Maintenance</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Hi, Jhon Doe</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+	<!-- Form -->
+    <div class="container mt-4">
+        <h2>Report Form</h2>
+        <form action="/report/add" method="post">
+            <!-- Header Form -->
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="month">Year</label>
+                    <input type="text" class="form-control" id="year" placeholder="Year">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="shift">Shift</label>
+                    <select class="form-control" id="shift">
+                        <option value="1">Shift A</option>
+                        <option value="2">Shift B</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="supervisor">Supervisor</label>
+                    <input type="text" class="form-control" id="supervisor" placeholder="Supervisor">
+                </div>
+            </div>
+
+            <!-- Details Form -->
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="date">Date</label>
+                    <input type="date" class="form-control" id="date" placeholder="Date">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="input5">Equipment name</label>
+                    <input type="text" class="form-control" id="input5" placeholder="Equipment name">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="input6">Equipment ID</label>
+                    <input type="text" class="form-control" id="input6" placeholder="Equipment ID">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="input7">Equipment model</label>
+                    <input type="text" class="form-control" id="input7" placeholder="Equipment model">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="input8">Problem Description</label>
+                    <textarea class="form-control" id="input8" placeholder="Type here..."></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="input9">Solution & Parts</label>
+                    <textarea class="form-control" id="input9" placeholder="Type here..."></textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="input10">Status</label>
+                    <select class="form-control" id="input10">
+                        <option value="1">Done</option>
+                        <option value="2">Pending</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="input11">Start time</label>
+                    <input type="time" class="form-control" id="input11" placeholder="Start time">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="input12">End Time</label>
+                    <input type="time" class="form-control" id="input12" placeholder="Input 12">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="tecname">Technician Name</label>
+                    <input type="text" class="form-control" id="tecname" placeholder="Name">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="category">Category</label>
+                    <input type="text" class="form-control" id="category" placeholder="Category">
+                </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+    </div>
+
+	<script src="/js/core/jquery.min.js"></script>
+	<script src="/js/plugin/jquery-ui/jquery-ui.min.js"></script>
+	<script src="/js/core/popper.min.js"></script>
+	<script src="/js/core/bootstrap.min.js"></script>
+</body>
+</html>

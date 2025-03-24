@@ -1,0 +1,40 @@
+{
+  "name": "Maintenance Report",
+  "version": "0.0.0",
+  "description": "Maintenance Report",
+  "main": "app.js",
+  "private": true,
+  "scripts": {
+    "start": "node app",
+    "dev": "SET DEBUG=maintenance:server & nodemon -e js,html app.js",
+    "init-db": "node init_db.js"
+  }, 
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "none"
+  ],
+  "author": "Team",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-session": "^1.4.0",
+    "debug": "^4.1.1",
+    "ejs": "^3.1.10",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.7-alpha.3",
+    "express-flash": "0.0.2",
+    "http-errors": "^1.8.0",
+    "moment": "^2.30.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.1.0",
+    "node-xlsx": "^0.15.0",
+    "nodemailer": "^6.4.10",
+    "pdf-creator-node": "^1.4.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.4"
+  }
+}
