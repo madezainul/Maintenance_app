@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>{{title}} - MAINTENANCE</title>
+	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+	<link rel="icon" href="" type="image/x-icon"/>
+	
+	<!-- Fonts and icons -->
+	<script src="/js/plugin/webfont/webfont.min.js"></script>
+	<script>
+		WebFont.load({
+			google: {"families":["Open+Sans:300,400,600,700"]},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands"], urls: ['/css/fonts.min.css']},
+			active: function() {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/fonts.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+	<!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Maintenance</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Hi, Jhon Doe</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- DataTable -->
+    <div class="container mt-4">
+        <h2>Maintenance Report Year 2025</h2>
+        <table id="reportTable" class="table table-striped table-bordered" style="width:200%">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Shift</th>
+                    <th>Equipment Name</th>
+                    <th>Equipment ID</th>
+                    <th>Equipment Model</th>
+                    <th>Problem Description</th>
+                    <th>Solution & Parts</th>
+                    <th>Status</th>
+                    <th>Start Time</th>
+                    <th>Stop Time</th>
+                    <th>Total Time</th>
+                    <th>Technician Name</th>
+                    <th>Supervisor</th>
+                    <th>Category</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                
+                <!-- Data will be populated here -->
+                <% reports.forEach(function(report) { %>
+                    <tr>
+                        <td><%= report.date %></td>
+                        <td><%= report.shift %></td>
+                        <td><%= report.equipment_name %></td>
+                        <td><%= report.equipment_id %></td>
+                        <td><%= report.equipment_model %></td>
+                        <td><%= report.problem_description %></td>
+                        <td><%= report.solution_part_replaced %></td>
+                        <td><%= report.status %></td>
+                        <td><%= report.start_time %></td>
+                        <td><%= report.stop_time %></td>
+                        <td><%= report.total_time_spent %></td>
+                        <td><%= report.technician_name %></td>
+                        <td><%= report.supervisor %></td>
+                        <td><%= report.category %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+	<script src="/js/core/jquery.min.js"></script>
+	<script src="/js/plugin/jquery-ui/jquery-ui.min.js"></script>
+	<script src="/js/core/popper.min.js"></script>
+	<script src="/js/core/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+    <!-- <script src="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap4.css"></script>
+    <script src="/js/plugin/datatables/datatables.mn.js"></script> -->
+    <!-- <script>new DataTable('#reportTable', {
+        // layout: {
+        //     topEnd: 'search'
+        // },
+        order: [[0, 'desc']],
+        scrollX: true
+        });
+    </script> -->
+	
+    <!-- Ini gk tau caranya di customize width column -->
+    <script>
+        $(document).ready(function() {
+            $('#reportTable').DataTable({
+                // "ajax": "/api/reports", // URL to fetch data
+                "columnDefs": [
+                    { "width": "10%", "targets": 0 },
+                    { "width": "5%", "targets": 1 },
+                    { "width": "10%", "targets": 2 },
+                    { "width": "10%", "targets": 3 },
+                    { "width": "10%", "targets": 4 },
+                    { "width": "20%", "targets": 5 },
+                    { "width": "20%", "targets": 6 },
+                    { "width": "5%", "targets": 7 },
+                    { "width": "10%", "targets": 8 },
+                    { "width": "10%", "targets": 9 },
+                    { "width": "10%", "targets": 10 },
+                    { "width": "10%", "targets": 11 },
+                    { "width": "10%", "targets": 12 },
+                    { "width": "10%", "targets": 13 }
+                ],
+                "scrollX": true
+            });
+        });
+    </script>
+</body>
+</html>
