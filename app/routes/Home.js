@@ -104,7 +104,7 @@ router.get('/report', async (req, res) => {
 // 	});
 // });
 
-// router.get('/report/:id', (req, res) => {
+// router.get('/report/:year/:month', (req, res) => {
 // 	ReportDetails.getall('report_header_id', req.params.id, (err, reports) => {
 // 		let context = {
 // 			title: 'Report Detail',
