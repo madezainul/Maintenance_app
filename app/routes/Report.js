@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
 const { ReportDetails } = require('../models/ReportDetails');
 
 
@@ -11,14 +12,31 @@ router.get('/report_add', async (req, res) => {
 });
 
 // Routes untuk handle report_detail
+// router.get('/report_detail', async (req, res) => {
+//     ReportDetails.all((err, rows) => {
+//         if (err) {
+//             return res.status(500).send('Error getting report');
+//         }
+//         res.render('report/report_detail', { reports: rows });
+//     });
+// });
 router.get('/report_detail', async (req, res) => {
     ReportDetails.all((err, rows) => {
-        if (err) {
-            return res.status(500).send('Error getting report');
-        }
-        res.render('report/report_detail', { reports: rows });
+        let context = {
+            title: 'Report Details',
+            reports: rows.map(row => {
+                return {
+                    ...row, 
+                    date: moment(row.date).format('YYYY-MM-DD'),
+                    // start_time: moment(row.start_time).format('hh:mm:ss'),
+                    // stop_time: moment(row.stop_time).format('hh:mm:ss')
+                }
+            })
+        };
+        res.render('report/report_detail', context);
     });
 });
+
 
 //Routes untuk handle report_page
 router.get('/report_page', async (req, res) => {
