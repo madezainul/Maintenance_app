@@ -25,13 +25,19 @@ router.get('/report_page', async (req, res) => {
     res.render('report/report_page', { title: 'Report Page' });
 });
 
-router.get('/report_page/:id', async (req, res) => {
-    ReportDetails.findById(req.params.id, (err, row) => {
-        if (err) {
-            return res.status(500).send('Error getting report');
-        }
-        res.render('report/report_page', { report: row });
-    });
+router.get('/report_page/:year/:month', async (req, res) => {
+    let context = {
+        year: req.params.year,
+        month: req.params.month
+    }
+    res.render("report/apaajah", context);
+    // ReportDetails.findById(req.params.id, (err, row) => {
+    //     if (err) {
+    //         return res.status(500).send('Error getting report');
+    //     }
+    //     res.render('report/report_page', { report: row });
+    // });
+
 });
 
 module.exports = router;

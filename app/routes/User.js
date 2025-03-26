@@ -57,7 +57,6 @@ router.post('/create', Form.createUser, (req, res) => {
 router.post('/update', Form.updateUser, (req, res) => {
     let { id, username, email, role } = req.body;
     User.getone('id', id, (err, row) => {
-        console.log(row);
         console.log(email != row.email || username != row.username);
         if(email != row.email) {
             User.getone('email', email, (err, userRow) => {

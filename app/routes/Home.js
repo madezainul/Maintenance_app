@@ -20,23 +20,23 @@ router.get('/', async (req, res) => {
 	});
 });
 
-router.get('/report', async (req, res) => {
-	ReportHeader.all((err, rows) => {
-		rows.forEach(row => {
-			row.date = moment(row.date).format('YYYY-MM-DD'); // Format the date as YYYY-MM-DD
-		});
-		let context = {
-			title: 'Home',
-			reports: rows.map(row => {
-				return {
-					...row,
-					created_at: moment(row.created_at).format('YYYY-MM-DD hh:mm:ss')
-				}
-			})
-		};
-		res.render('home/report', context);
-	});
-});
+// router.get('/report', async (req, res) => {
+// 	ReportHeader.all((err, rows) => {
+// 		rows.forEach(row => {
+// 			row.date = moment(row.date).format('YYYY-MM-DD'); // Format the date as YYYY-MM-DD
+// 		});
+// 		let context = {
+// 			title: 'Home',
+// 			reports: rows.map(row => {
+// 				return {
+// 					...row,
+// 					created_at: moment(row.created_at).format('YYYY-MM-DD hh:mm:ss')
+// 				}
+// 			})
+// 		};
+// 		res.render('home/report', context);
+// 	});
+// });
 
 // router.post('/report/create', (req, res) => {
 // 	const { date, shift, supervisor, technician_name } = req.body;
