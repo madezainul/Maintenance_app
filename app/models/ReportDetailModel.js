@@ -1,7 +1,7 @@
 'use strict'
 const {Connector} = require('../../config/database');
 
-exports.ReportDetails = {
+exports.ReportDetail = {
     add: async (row, cb) => {
         let sql = `INSERT INTO report_details SET ?`;
         await Connector.promise().query(sql, row);
