@@ -247,83 +247,85 @@
         </nav>
         <!-- End Navbar -->
         <div class="container-fluid py-2 px-4">
-            <div class="card shadow-lg py-4 px-4 mb-4">
-                <form action="">
-                    <div class="row">
-                        <div class="input-group input-group-static col-sm my-3 me-6">
-                            <label for="text">Date</label>
-                            <input type="date" class="form-control">
+            <div class="row">
+                <div class="card shadow-lg py-4 px-4 mb-4">
+                    <form action="">
+                        <div class="row">
+                            <div class="input-group input-group-static col-sm my-3 me-6">
+                                <label for="text">Date</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="input-group input-group-static col-sm my-3 me-6">
+                                <label for="shift" class="ms-0">Shift</label>
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="material-symbols-rounded">stat_minus_1</i>
+                                </span>
+                                <select class="form-control" id="shift">
+                                    <option value="0">Select Shift</option>
+                                    <option value="1">A</option>
+                                    <option value="2">B</option>
+                                </select>
+                            </div>
+                            <div class="input-group input-group-static col-sm my-3 me-6">
+                                <label for="text" class="form-label">Equipment Name</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="input-group input-group-static col-sm my-3">
+                                <label for="text" class="form-label">Equipment ID</label>
+                                <input type="text" class="form-control">
+                            </div>
                         </div>
-                        <div class="input-group input-group-static col-sm my-3 me-6">
-                            <label for="shift" class="ms-0">Shift</label>
-                            <span class="input-group-text" id="basic-addon1">
-                                <i class="material-symbols-rounded">stat_minus_1</i>
-                            </span>
-                            <select class="form-control" id="shift">
-                                <option value="0">Select Shift</option>
-                                <option value="1">A</option>
-                                <option value="2">B</option>
-                            </select>
+                        <div class="row">
+                            <div class="input-group input-group-static my-3">
+                                <label for="text" class="form-label">Problem Description</label>
+                                <input type="text" class="form-control">
+                            </div>
                         </div>
-                        <div class="input-group input-group-static col-sm my-3 me-6">
-                            <label for="text" class="form-label">Equipment Name</label>
-                            <input type="text" class="form-control">
+                        <div class="row">
+                            <div class="input-group input-group-static my-3">
+                                <label for="text" class="form-label">Solutions & Parts</label>
+                                <input type="text" class="form-control">
+                            </div>
                         </div>
-                        <div class="input-group input-group-static col-sm my-3">
-                            <label for="text" class="form-label">Equipment ID</label>
-                            <input type="text" class="form-control">
+                        <div class="row">
+                            <div class="input-group input-group-static col-sm my-3 me-6">
+                                <label for="start-time" class="form-label">Start Time</label>
+                                <input type="time" class="form-control">
+                            </div>
+                            <div class="input-group input-group-static col-sm my-3 me-6">
+                                <label for="stop-time" class="form-label">Stop Time</label>
+                                <input type="time" class="form-control">
+                            </div>
+                            <div class="input-group input-group-static col-sm my-3">
+                                <label for="total time">Total Time</label>
+                                <span class="input-group-text" id="basic-addon1">Hour</span>
+                                <input type="text" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-group input-group-static my-3">
-                            <label for="text" class="form-label">Problem Description</label>
-                            <input type="text" class="form-control">
+                        <div class="row">
+                            <div class="input-group input-group-static col-sm my-3 me-6">
+                                <label for="text" class="form-label">Technician</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="input-group input-group-static col-sm my-3 me-6">
+                                <label for="text" class="form-label">Supervisor</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="input-group input-group-static col-sm my-3">
+                                <label for="text" class="form-label">Category</label>
+                                <input type="text" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-group input-group-static my-3">
-                            <label for="text" class="form-label">Solutions & Parts</label>
-                            <input type="text" class="form-control">
+                        <div class="row justify-content-center">
+                            <a href="javascript:;" class="btn btn-icon bg-gradient-success d-lg-block col-md-4 mt-3 mb-0">
+                                Submit
+                            </a>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-group input-group-static col-sm my-3 me-6">
-                            <label for="start-time" class="form-label">Start Time</label>
-                            <input type="time" class="form-control">
-                        </div>
-                        <div class="input-group input-group-static col-sm my-3 me-6">
-                            <label for="stop-time" class="form-label">Stop Time</label>
-                            <input type="time" class="form-control">
-                        </div>
-                        <div class="input-group input-group-static col-sm my-3">
-                            <label for="total time">Total Time</label>
-                            <span class="input-group-text" id="basic-addon1">Hour</span>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-group input-group-static col-sm my-3 me-6">
-                            <label for="text" class="form-label">Technician</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="input-group input-group-static col-sm my-3 me-6">
-                            <label for="text" class="form-label">Supervisor</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="input-group input-group-static col-sm my-3">
-                            <label for="text" class="form-label">Category</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <a href="javascript:;" class="btn btn-icon bg-gradient-success d-lg-block col-md-4 mt-3 mb-0">
-                            Submit
-                        </a>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
             <div class="row mt-auto position-fixed bottom-0 w-100">
-                <footer class="footer py-4"></footer>
+                <footer class="footer py-4  ">
                     <div class="container-fluid">
                         <div class="row align-items-center justify-content-lg-between">
                             <div class="col-lg-6 mb-lg-0 mb-4">
