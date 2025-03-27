@@ -288,6 +288,16 @@
                     </div>
                     <div class="row">
                         <div class="input-group input-group-static col-sm my-3 me-6">
+                            <label for="status" class="ms-0">Status</label>
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="material-symbols-rounded">stat_minus_1</i>
+                            </span>
+                            <select name="status" class="form-control" id="status" required>
+                                <option value="Done">Done</option>
+                                <option value="Pending">Pending</option>
+                            </select>
+                        </div>
+                        <div class="input-group input-group-static col-sm my-3 me-6">
                             <label for="start-time" class="form-label">Start Time</label>
                             <input name="start_time" type="time" class="form-control" required>
                         </div>
