@@ -32,29 +32,6 @@ router.post('/create', (req, res) => {
                 req.flash('success', 'report berhasil ditambahkan, silahkan cek email untuk aktivasi akun');
                 res.redirect('/report/report_detail');
             });
-    // User.check(username, email, (err, userRow) => {
-    //     console.log(userRow);
-    //     if (userRow) {
-    //         req.flash('warning', 'username atau email sudah ada');
-    //         return res.redirect('/user');
-    //     }
-    //     let userData = {
-    //         username: username,
-    //         email: email,
-    //         role: role,
-    //         password: encrypt(password),
-    //         token: crypto.randomBytes(32).toString('hex'),
-    //         token_expires_at: moment().add(1, 'd').format('YYYY-MM-DD hh:mm:ss'),
-
-    //         // remove this if the email verification feature was acivated
-    //         verified_at: moment().format('YYYY-MM-DD hh:mm:ss')
-    //     };
-    //     // Message.activateAccount(email, userData.token);
-    //     User.add(userData, () => {
-    //         req.flash('success', 'user berhasil ditambahkan, silahkan cek email untuk aktivasi akun');
-    //         res.redirect('/user');
-    //     });
-    // });
 });
 
 router.get('/report_detail', async (req, res) => {
@@ -74,21 +51,38 @@ router.get('/report_detail', async (req, res) => {
     });
 });
 
-// Routes untuk handle report_detail
-// router.get('/report_detail', async (req, res) => {
-//     ReportDetail.all((err, rows) => {
-//         if (err) {
-//             return res.status(500).send('Error getting report');
-//         }
-//         res.render('report/report_detail', { reports: rows });
-//     });
-// });
-
-
+// Routes dynamic
+router.get('/report_detail/:year/:month', async (req, res) => {
+    ReportDetail.getdate(req.params.year, req.params.month, (err, rows) => {
+        let context = {
+            title: 'Report Details',
+            reports: rows.map(row => {
+                return {
+                    ...row, 
+                    date: moment(row.date).format('YYYY-MM-DD')
+                }
+            })
+        };
+        res.render('report/report_detail', context);
+    });
+});
 
 //Routes untuk handle report_page
 router.get('/report_page', async (req, res) => {
-    res.render('report/report_page', { title: 'Report Page' });
+    ReportDetail.all((err, rows) => {
+        let context = {
+            title: 'Report Details',
+            reports: rows.map(row => {
+                return {
+                    ...row, 
+                    date: moment(row.date).format('YYYY MMMM'),
+                    year: moment(row.date).format('YYYY'),
+                    month: moment(row.date).format('M')
+                }
+            })
+        };
+        res.render('report/report_page', context);
+    });
 });
 
 module.exports = router;

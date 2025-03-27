@@ -224,28 +224,18 @@
             <thead>
               <tr>
                 <th>Year</th>
-                <th>Month</th>
               </tr>
             </thead>
   
             <!-- Data will be populated here -->
             <tbody>
+              <% reports.forEach(function(report) { %>
               <tr>
-                <td>2025</td>
-                <td><a href="/report/report_page/2025/january">January</a></td>
+                <td>
+                  <a href="/report/report_detail/<%= report.year %>/<%= report.month %>"><%= report.date %></a>
+                </td>
               </tr>
-              <tr>
-                <td>2025</td>
-                <td>February</td>
-              </tr>
-              <tr>
-                <td>2025</td>
-                <td>March</td>
-              </tr>
-              <tr>
-                <td>2025</td>
-                <td>April</td>
-              </tr>
+              <% }); %>
             </tbody>
           </table>
         </div>
@@ -373,8 +363,7 @@
       $('#report').DataTable({
         // "ajax": "/api/reports", // URL to fetch data
         "columns": [
-          { data: 'year' },
-          { data: 'month' }
+          { data: 'date' }
         ]
       });
     });

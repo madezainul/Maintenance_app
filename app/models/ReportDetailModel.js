@@ -31,5 +31,10 @@ exports.ReportDetail = {
         let sql = `SELECT * FROM report_details WHERE ${col}='${val}'`;
         let [rows] = await Connector.promise().query(sql);
         cb(null, rows);
+    },
+    getdate: async (year, month, cb) => {
+        let sql = `SELECT * FROM report_details WHERE YEAR(date)='${year}' AND MONTH(date)='${month}'`;
+        let [rows] = await Connector.promise().query(sql);
+        cb(null, rows);
     }
 }

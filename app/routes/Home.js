@@ -3,18 +3,22 @@
 const express = require('express'),
 	moment = require('moment'),
 	router = express.Router(),
-	{ ReportHeader } = require('../models/ReportHeaderModel'),
-	// { ReportDetails } = require('../models/ReportDetails'),
+	// { ReportHeader } = require('../models/ReportHeaderModel'),
+	{ ReportDetail } = require('../models/ReportDetailModel'),
 	{ Auth } = require('../middlewares/Auth');
 
 router.get('/', async (req, res) => {
-	ReportHeader.all((err, rows) => {
-		rows.forEach(row => {
-			row.date = moment(row.date).format('YYYY-MM-DD'); // Format the date as YYYY-MM-DD
-		});
+	ReportDetail.all((err, rows) => {
 		let context = {
-			title: 'Home',
-			reports: rows,
+			title: 'Report Details',
+			reports: rows.map(row => {
+				return {
+					...row, 
+					date: moment(row.date).format('YYYY MMMM'),
+					year: moment(row.date).format('YYYY'),
+					month: moment(row.date).format('MMMM')
+				}
+			})
 		};
 		res.render('home/index', context);
 	});
