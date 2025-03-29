@@ -34,6 +34,43 @@ router.post('/create', (req, res) => {
             });
 });
 
+router.post('/update', (req, res) => {
+    let { id, date, shift, equipment_name, equipment_id, problem_description, solution_part_replaced, start_time, stop_time, total_time_spent, technician_name, supervisor, category } = req.body;
+    ReportDetail.getone('id', id, (err, row) => {
+        
+        console.log("id = ", id)
+        let reportData = {
+            id: id,
+            date: date,
+            shift: shift,
+            equipment_name: equipment_name,
+            equipment_id: equipment_id,
+            problem_description: problem_description,
+            solution_part_replaced: solution_part_replaced,
+            start_time: start_time,
+            stop_time: stop_time,
+            total_time_spent: total_time_spent,
+            technician_name: technician_name,
+            supervisor: supervisor,
+            category: category
+        }
+        // Message.activateAccount(email, userData.token);
+        ReportDetail.put(reportData, () => {
+            req.flash('success', 'data report berhasil diubah, silahkan cek email untuk aktivasi akun anda');
+            return res.redirect('/report/report_detail');
+        });
+    })
+});
+
+router.get('/delete/:id', (req, res) => {
+    ReportDetail.getone('id', req.params.id, (err, userRow) => {
+        ReportDetail.del(req.params.id, () => {
+            req.flash('success', 'data report berhasil dihapus');
+            res.redirect('/report/report_detail');
+        });
+    });
+});
+
 router.get('/report_detail', async (req, res) => {
     ReportDetail.all((err, rows) => {
         let context = {

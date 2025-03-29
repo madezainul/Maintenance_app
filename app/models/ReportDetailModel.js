@@ -13,7 +13,7 @@ exports.ReportDetail = {
         cb(null, rows);
     },
     put: async (col, cb) => {
-        let sql = `UPDATE report_details SET ? WHERE id=${col['id']}`;
+        let sql = `UPDATE report_details SET ? WHERE id='${col['id']}'`;
         await Connector.promise().query(sql, col);
         cb(null);
     },
