@@ -69,7 +69,7 @@ router.get('/report_detail/:year/:month', async (req, res) => {
 
 //Routes untuk handle report_page
 router.get('/report_page', async (req, res) => {
-    ReportDetail.all((err, rows) => {
+    ReportDetail.getUniqueYearMonth((err, rows) => {
         let context = {
             title: 'Report Details',
             reports: rows.map(row => {

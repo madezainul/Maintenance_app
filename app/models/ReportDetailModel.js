@@ -36,5 +36,15 @@ exports.ReportDetail = {
         let sql = `SELECT * FROM report_details WHERE YEAR(date)='${year}' AND MONTH(date)='${month}'`;
         let [rows] = await Connector.promise().query(sql);
         cb(null, rows);
+    },
+    getUniqueYearMonth: async (cb) => {
+        let sql = `SELECT 
+  EXTRACT(YEAR FROM date) AS year,
+  EXTRACT(MONTH FROM date) AS month
+FROM report_details
+GROUP BY year, month
+ORDER BY year, month;`;
+        const [rows] = await Connector.promise().query(sql);
+        cb(null, rows);
     }
 }
