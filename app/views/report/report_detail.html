@@ -269,7 +269,6 @@
                   <th>Shift</th>
                   <th>Equipment Name</th>
                   <th>Equipment ID</th>
-                  <th>Equipment Model</th>
                   <th>Problem Description</th>
                   <th>Solution & Parts</th>
                   <th>Status</th>
@@ -312,9 +311,6 @@
                     </td>
                     <td>
                       <%= report.equipment_id %>
-                    </td>
-                    <td>
-                      <%= report.equipment_model %>
                     </td>
                     <td>
                       <%= report.problem_description %>
@@ -509,7 +505,7 @@
       </div>
     </div>
   </main>
-  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <!-- <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -530,7 +526,6 @@
               <label for="editEquipmentName" class="form-label">Equipment Name</label>
               <input type="text" class="form-control" id="editEquipmentName" name="equipment_name">
             </div>
-            <!-- Add more fields as needed -->
           </form>
         </div>
         <div class="modal-footer">
@@ -539,6 +534,105 @@
         </div>
       </div>
     </div>
+  </div> -->
+  <!-- Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-body p-4">
+          <div class="card card-plain">
+            <div class="card-header pb-0 text-left">
+              <h5 class="">Edit</h5>
+              <p class="mb-0">Please change the data</p>
+            </div>
+            <div class="card-body pb-3">
+              <form id="editForm" role="form text-left">
+                <div class="row">
+                  <div class="input-group input-group-static col-sm my-3">
+                    <label>Date</label>
+                    <input type="date" id="date" name="date" class="form-control">
+                  </div>
+                  <div class="input-group input-group-static col-sm my-3">
+                    <label for="shift" class="ms-0">Shift</label>
+                    <span class="input-group-text" id="basic-addon1">
+                        <i class="material-symbols-rounded">stat_minus_1</i>
+                    </span>
+                    <select name="shift" class="form-control" id="shift" required>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                    </select>
+                  </div>
+                  <div class="input-group input-group-static col-sm my-3">
+                    <label>Equipment Name</label>
+                    <input type="text" id="equipment_name" name="equipment_name" class="form-control">
+                  </div>
+                  <div class="input-group input-group-static col-sm my-3">
+                    <label>Equipment ID</label>
+                    <input type="text" id="equipment_id" name="equipment_id" class="form-control">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-group input-group-static my-3">
+                    <label>Problem Description</label>
+                    <input id="problem_description" name="problem_description" type="text" class="form-control">
+                </div>
+                </div>
+                <div class="row">
+                  <div class="input-group input-group-static my-3">
+                    <label>Solutions & Parts</label>
+                    <input id="solution_part_replaced" name="solution_part_replaced" type="text" class="form-control" required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-group input-group-static col-sm my-3">
+                    <label for="status" class="ms-0">Status</label>
+                    <span class="input-group-text" id="basic-addon1">
+                        <i class="material-symbols-rounded">stat_minus_1</i>
+                    </span>
+                    <select name="status" class="form-control" id="edit_status" required>
+                        <option value="Done">Done</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                  </div>
+                  <div class="input-group input-group-static col-sm my-3">
+                      <label for="start-time">Start Time</label>
+                      <input id="start_time" name="start_time" type="time" class="form-control" required>
+                  </div>
+                  <div class="input-group input-group-static col-sm my-3">
+                      <label for="stop-time">Stop Time</label>
+                      <input id="stop_time" name="stop_time" type="time" class="form-control" required>
+                  </div>
+                  <div class="input-group input-group-static col-sm my-3">
+                      <label for="total time">Total Time</label>
+                      <span class="input-group-text" id="basic-addon1">Hour</span>
+                      <input id="total_time_spent" name="total_time_spent" type="text" class="form-control" required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-group input-group-static col-sm my-3">
+                    <label for="technician_name">Technician Name</label>
+                    <input id="technician_name" name="technician_name" type="text" class="form-control" required>
+                  </div>
+                  <div class="input-group input-group-static col-sm my-3">
+                    <label for="supervisor">Supervisor</label>
+                    <input id="supervisor" name="supervisor" type="text" class="form-control" required>
+                  </div>
+                  <div class="input-group input-group-static col-sm my-3">
+                    <label for="category">Category</label>
+                    <input id="category" name="category" type="text" class="form-control" required>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <button type="button" class="btn bg-gradient-success btn-lg btn-rounded w-100 mt-4 mb-0">Update</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
   <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
@@ -813,7 +907,6 @@
           { data: 'shift' },
           { data: 'equipment_name' },
           { data: 'equipment_id' },
-          { data: 'equipment_model' },
           { data: 'problem_description' },
           { data: 'solution_part_replaced' },
           { data: 'status' },
@@ -857,6 +950,15 @@
         $('#shift').val(selectedRow.shift);
         $('#equipment_name').val(selectedRow.equipment_name);
         $('#equipment_id').val(selectedRow.equipment_id);
+        $('#problem_description').val(selectedRow.problem_description);
+        $('#solution_part_replaced').val(selectedRow.solution_part_replaced);
+        $('#status').val(selectedRow.status);
+        $('#start_time').val(selectedRow.start_time);
+        $('#stop_time').val(selectedRow.stop_time);
+        $('#total_time_spent').val(selectedRow.total_time_spent);
+        $('#technician_name').val(selectedRow.technician_name);
+        $('#supervisor').val(selectedRow.supervisor);
+        $('#category').val(selectedRow.category);
 
         // show the modal
         $('#editModal').modal('show');
