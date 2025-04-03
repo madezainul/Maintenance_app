@@ -28,15 +28,15 @@ router.post('/signin', Form.signin, (req, res) => {
     let { identity, password } = req.body;
     User.verify(identity, (err, userRow) => {
         if (!userRow) {
-            req.flash('warning', 'username or email belum terdaftar');
+            req.flash('warning', 'username or email not found');
             return res.redirect('/auth/signin');
         }
         if (!userRow.verified_at) {
-            req.flash('warning', 'akun belum diaktivasi, silahkan cek email untuk aktivasi akun anda');
+            req.flash('warning', 'Account is not activated, please contact the Admin to activate your account');
             return res.redirect('/auth/signin');
         }
         if (encrypt(password) != userRow.password) {
-            req.flash('warning', 'password salah');
+            req.flash('warning', 'wrong password');
             return res.redirect('/auth/signin');
         }
         req.session.id = userRow.id;
@@ -55,7 +55,7 @@ router.post('/signup', Form.signup, (req, res) => {
     let { employee_id, username, email, password } = req.body;
     User.check(username, email, employee_id, (err, userRow) => {
         if (userRow) {
-            req.flash('warning', 'employee ID atau username atau email sudah terdaftar');
+            req.flash('warning', 'employee ID or username or email not found');
             return res.redirect('/auth/signup');
         }
         let userData = {
@@ -72,7 +72,7 @@ router.post('/signup', Form.signup, (req, res) => {
         };
         // Message.activateAccount(email, userData.token);
         User.add(userData, () => {
-            req.flash('success', 'user berhasil didaftarkan, silahkan cek email untuk aktivasi akun anda');
+            req.flash('success', 'user is successfully registered, please check your email for activate your account');
             res.redirect('/auth/signin');
         });
     });

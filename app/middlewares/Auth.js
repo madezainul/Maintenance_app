@@ -8,11 +8,11 @@ exports.Auth = {
         }
         User.getone('id', req.session.id, (err, userRow) => {
             if(!userRow) {
-                req.flash('warning' ,'akun tidak ditemukan');
+                req.flash('warning' ,'Account not found');
                 return res.redirect('/auth/signin');
             }
             if(userRow.role != 'ADMIN') {
-                req.flash('warning', 'akses tidak diizinkan');
+                req.flash('warning', 'Permission denied');
                 return res.redirect('/auth/signin');
             }
             req.user = userRow;
@@ -25,11 +25,11 @@ exports.Auth = {
         }
         User.getone('id', req.session.id, (err, userRow) => {
             if(!userRow) {
-                req.flash('warning' ,'akun tidak ditemukan');
+                req.flash('warning' ,'Account not found');
                 return res.redirect('/auth/signin');
             }
-            if(userRow.role != 'USER' || userRow.role != 'ADMIN') {
-                req.flash('warning', 'akses tidak diizinkan');
+            if(userRow.role != 'USER') {
+                req.flash('warning', 'Permission denied');
                 return res.redirect('/auth/signin');
             }
             req.user = userRow;
