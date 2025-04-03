@@ -259,7 +259,7 @@
                 </div>
                 <div class="col-lg-6 col-5 text-end">
                   <!-- Add Report Button -->
-                  <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#add-report">
+                  <button class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#add-report">
                     <i class="fas fa-plus"></i>&nbsp;Add Report
                   </button>
 
@@ -1015,14 +1015,14 @@
   <script>
   <% if (messages.success) { %>
           Swal.fire(
-              'Berhasil!',
+              'Success!',
               '<%= messages.success %>',
               'success'
           );
   <% } %>
   <% if (messages.warning) { %>
           Swal.fire(
-              'Peringatan!',
+              'Warning!',
               '<%= messages.warning %>',
               'warning'
           ); 
