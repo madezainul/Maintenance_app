@@ -232,7 +232,7 @@
               <% reports.forEach(function(report) { %>
               <tr>
                 <td>
-                  <a href="/report/report_detail/<%= report.year %>/<%= report.month %>"><%= report.date %></a>
+                  <a href="/report/report_detail/<%= report.year %>/<%= report.month %>"><%= report.year %> <%= report.month_name %></a>
                 </td>
               </tr>
               <% }); %>
