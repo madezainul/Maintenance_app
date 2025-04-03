@@ -1,5 +1,5 @@
 'use strict'
-const {Connector} = require('../../config/database');
+const { Connector } = require('../../config/database');
 
 exports.ReportDetail = {
     add: async (row, cb) => {
@@ -37,14 +37,29 @@ exports.ReportDetail = {
         let [rows] = await Connector.promise().query(sql);
         cb(null, rows);
     },
-    getUniqueYearMonth: async (cb) => {
-        let sql = `SELECT 
-  EXTRACT(YEAR FROM date) AS year,
-  EXTRACT(MONTH FROM date) AS month
-FROM report_details
-GROUP BY year, month
-ORDER BY year, month;`;
-        const [rows] = await Connector.promise().query(sql);
-        cb(null, rows);
+    // getUniqueYearMonth: async (cb) => {
+    //     let sql = `SELECT 
+    //         EXTRACT(YEAR FROM date) AS year,
+    //         EXTRACT(MONTH FROM date) AS month
+    //         FROM report_details
+    //         GROUP BY year, month
+    //         ORDER BY year, month;`;
+    //     const [rows] = await Connector.promise().query(sql);
+    //     cb(null, rows);
+    // }
+    getUniqueYearMonth: async () => {
+        try {
+            let sql = `SELECT
+            EXTRACT(YEAR FROM date) AS year,
+            EXTRACT(MONTH FROM date) AS month
+            FROM report_details
+            GROUP BY year, month
+            ORDER BY year, month;`;
+            const [rows] = await Connector.promise().query(sql);
+            return rows;
+        } catch (err) {
+            console.error('Error in getUniqueYearMonth:', err);
+            throw err; // Propagate the error to the caller
+        }
     }
 }
