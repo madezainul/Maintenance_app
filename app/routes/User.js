@@ -102,4 +102,31 @@ router.get('/delete/:id', (req, res) => {
     });
 });
 
+// router.get('/user/profile/:id', async (req, res) => {
+//     let userId = req.params.id;
+//     User.getone('id', userId, (err, userRow) => {
+//         if (err || !userRow) {
+//             req.flash('error', 'User not found');
+//             return res.redirect('/user');
+//         }
+//         let context = {
+//             title: 'User Profile',
+//             user: {
+//                 ...userRow,
+//                 verified_at: moment(userRow.verified_at).format('YYYY-MM-DD hh:mm:ss'),
+//                 created_at: moment(userRow.created_at).format('YYYY-MM-DD hh:mm:ss'),
+//                 updated_at: moment(userRow.updated_at).format('YYYY-MM-DD hh:mm:ss')
+//             }
+//         };
+//         res.render('user/profile', context);
+//     });
+// });
+
+router.get('/profile', (req, res) => {
+    let context = {
+        title: 'User Profile'
+    };
+    res.render('user/profile', context);
+});
+
 module.exports = router;
