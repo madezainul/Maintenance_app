@@ -122,9 +122,10 @@ router.get('/delete/:id', (req, res) => {
 //     });
 // });
 
-router.get('/profile', (req, res) => {
+router.get('/profile', Auth.isUser, (req, res) => {
     let context = {
-        title: 'User Profile'
+        title: 'User Profile',
+        user: req.user
     };
     res.render('user/profile', context);
 });

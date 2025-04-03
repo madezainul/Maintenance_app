@@ -28,7 +28,7 @@ exports.Auth = {
                 req.flash('warning' ,'akun tidak ditemukan');
                 return res.redirect('/auth/signin');
             }
-            if(userRow.role != 'USER') {
+            if(userRow.role != 'USER' || userRow.role != 'ADMIN') {
                 req.flash('warning', 'akses tidak diizinkan');
                 return res.redirect('/auth/signin');
             }
