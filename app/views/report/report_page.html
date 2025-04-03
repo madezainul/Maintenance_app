@@ -527,10 +527,10 @@
   <script>
     $(document).ready(function () {
       $('#report').DataTable({
-        // "ajax": "/api/reports", // URL to fetch data
-        "columns": [
-          { data: 'date' }
-        ]
+      "order": [[0, "desc"]], // Order by the first column (Year/Month) in descending order
+      "columns": [
+        { data: 'date' }
+      ]
       });
     });
   </script>
