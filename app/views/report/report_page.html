@@ -68,7 +68,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active bg-gradient-dark text-white" href="../report/report_page">
+          <a class="nav-link active bg-gradient-dark text-white" href="/report/report_page">
             <i class="material-symbols-rounded opacity-5">table_view</i>
             <span class="nav-link-text ms-1">Report</span>
           </a>
@@ -557,6 +557,7 @@
   <script>
     $(document).ready(function () {
       $('#report').DataTable({
+<<<<<<< HEAD
         // "ajax": "/api/reports", // URL to fetch data (uncomment if needed)
         "columns": [
             { 
@@ -569,12 +570,19 @@
         ],
         // Sort by Year (desc) and Month (desc)
         "order": [[1, 'desc'], [0, 'desc']] // Primary sort by hidden month, secondary by year // Sort by the first column (index 0) in descending order
+=======
+      "order": [[0, "desc"]], // Order by the first column (Year/Month) in descending order
+      "columns": [
+        { data: 'date' }
+      ]
+>>>>>>> 349e21e4e830f2944bd865068d15ea15a0822041
       });
     });
   </script>
   <script src="/js/plugin/sweetalert/sweetalert.min.js"></script>
   <script>
   <% if (messages.success) { %>
+<<<<<<< HEAD
       Swal.fire(
         'Berhasil!',
         '<%= messages.success %>',
@@ -587,6 +595,20 @@
         '<%= messages.warning %>',
         'warning'
       ); 
+=======
+          Swal.fire(
+              'Success!',
+              '<%= messages.success %>',
+              'success'
+          );
+  <% } %>
+  <% if (messages.warning) { %>
+          Swal.fire(
+              'Warning!',
+              '<%= messages.warning %>',
+              'warning'
+          ); 
+>>>>>>> 349e21e4e830f2944bd865068d15ea15a0822041
   <% } %>
   </script>
 </body>
