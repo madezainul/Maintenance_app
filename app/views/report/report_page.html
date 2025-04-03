@@ -272,6 +272,7 @@
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Year</th>
                       <th class="d-none">Month (Hidden)</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-end align-middle">Option</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -279,15 +280,19 @@
                       <tr>
                         <td class="td-item">
                           <a href="/report/report_detail/<%= report.year %>/<%= report.month %>">
-                            <%= report.year %>
-                              <%= report.month_name %>
+                            <%= report.year %> <%= report.month_name %>
                           </a>
                         </td>
                         <td class="d-none">
                           <%= report.month %>
                         </td>
+                        <td class="text-end align-middle">
+                          <a href="/report/export/<%= report.year %>/<%= report.month %>" role="button" class="btn btn-success mb-0">
+                            <i class="fa-solid fa-file-excel"></i>&nbsp;Export to XLSX
+                          </a>
+                        </td>
                       </tr>
-                      <% }); %>
+                    <% }); %>
                   </tbody>
                 </table>
               </div>
@@ -565,6 +570,10 @@
             { 
                 "data": "month", // Hidden column for sorting
                 "visible": false 
+            },
+            { 
+                "data": "export", // Combined year and month_name (visible column)
+                "orderable": false
             }
         ],
         // Sort by Year (desc) and Month (desc)

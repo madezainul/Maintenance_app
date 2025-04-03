@@ -1,0 +1,36 @@
+CREATE TABLE `users` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `employee_id` varchar(100) NOT NULL,
+    `username` varchar(100) NOT NULL,
+    `email` varchar(100) NOT NULL,
+    `password` varchar(100) NOT NULL,
+    `token` varchar(255) DEFAULT NULL,
+    `token_expires_at` datetime DEFAULT NULL,
+    `verified_at` datetime DEFAULT NULL,
+    `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    `role` enum('ADMIN', 'USER', 'STAFF') DEFAULT 'USER',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `employee_id` (`employee_id`),
+    UNIQUE KEY `username` (`username`),
+    UNIQUE KEY `email` (`email`)
+)
+
+CREATE TABLE `report_details` (
+    `id` int NOT NULL AUTO_INCREMENT,
+    `date` date NOT NULL,
+    `shift` varchar(2) NOT NULL,
+    `equipment_name` varchar(100) NOT NULL,
+    `equipment_id` varchar(100) DEFAULT NULL,
+    `problem_description` text,
+    `solution_part_replaced` text,
+    `status` varchar(50) DEFAULT NULL,
+    `start_time` time NOT NULL,
+    `stop_time` time NOT NULL,
+    `total_time_spent` varchar(50) NOT NULL,
+    `technician_name` varchar(100) DEFAULT NULL,
+    `supervisor` varchar(100) DEFAULT NULL,
+    `category` varchar(100) DEFAULT NULL,
+    `created_at` datetime DEFAULT NOW(),
+    PRIMARY KEY (`id`)
+)

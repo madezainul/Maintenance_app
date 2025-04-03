@@ -7,13 +7,13 @@ exports.User = {
         await Connector.promise().query(sql, row);
         cb(null);
     },
-    check: async (username, email, cb) => {
-        let sql = `SELECT * FROM users WHERE email = '${email}' OR username = '${username}' `;
+    check: async (username, email, employee_id, cb) => {
+        let sql = `SELECT * FROM users WHERE email = '${email}' OR username = '${username}' OR employee_id = '${employee_id}' `;
         const [rows] = await Connector.promise().query(sql);
         cb(null, rows[0]);
     },
     verify: async (identity, cb) => {
-        let sql = `SELECT * FROM users WHERE username = '${identity}' OR email = '${identity}' `;
+        let sql = `SELECT * FROM users WHERE username = '${identity}' OR email = '${identity}' OR employee_id = '${identity}' `;
         const [row] = await Connector.promise().query(sql);
         cb(null, row[0]);
     },

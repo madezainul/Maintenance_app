@@ -52,13 +52,14 @@ router.get('/signup', async (req, res) => {
 });
 
 router.post('/signup', Form.signup, (req, res) => {
-    let { username, email, password } = req.body;
-    User.check(username, email, (err, userRow) => {
+    let { employee_id, username, email, password } = req.body;
+    User.check(username, email, employee_id, (err, userRow) => {
         if (userRow) {
-            req.flash('warning', 'username atau email sudah terdaftar');
+            req.flash('warning', 'employee ID atau username atau email sudah terdaftar');
             return res.redirect('/auth/signup');
         }
         let userData = {
+            employee_id: employee_id,
             username: username,
             email: email,
             role: 'USER',

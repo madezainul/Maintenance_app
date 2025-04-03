@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const moment = require('moment');
 const { ReportDetail } = require('../models/ReportDetailModel');
+const xlsx = require('xlsx');
 
 // Route to handle adding a new report
 router.get('/report_add', async (req, res) => {
@@ -157,6 +158,57 @@ router.get('/report_detail/:year/:month', async (req, res) => {
         res.render('report/report_detail', context);
     } catch (err) {
         console.error('Error fetching reports by year/month:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// Route to export reports for a specific year and month to XLSX
+router.get('/export/:year/:month', async (req, res) => {
+    try {
+        const { year, month } = req.params;
+
+        // Fetch reports for the specified year and month
+        const rows = await ReportDetail.getdate(year, month);
+
+        if (!rows || rows.length === 0) {
+            return res.status(404).send('No data available for the specified year and month.');
+        }
+
+        // Format the data for the Excel sheet
+        const formattedData = rows.map(row => ({
+            Date: moment(row.date).format('YYYY-MM-DD'),
+            Shift: row.shift,
+            Equipment_Name: row.equipment_name,
+            Equipment_ID: row.equipment_id,
+            Problem_Description: row.problem_description,
+            Solution_Part_Replaced: row.solution_part_replaced,
+            Status: row.status,
+            Start_Time: row.start_time,
+            Stop_Time: row.stop_time,
+            Total_Time_Spent: row.total_time_spent,
+            Technician_Name: row.technician_name,
+            Supervisor: row.supervisor,
+            Category: row.category
+        }));
+
+        // Create a worksheet
+        const worksheet = xlsx.utils.json_to_sheet(formattedData);
+
+        // Create a workbook and append the worksheet
+        const workbook = xlsx.utils.book_new();
+        xlsx.utils.book_append_sheet(workbook, worksheet, 'Reports');
+
+        // Generate a buffer for the Excel file
+        const excelBuffer = xlsx.write(workbook, { type: 'buffer', bookType: 'xlsx' });
+
+        // Set response headers for file download
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', `attachment; filename=reports_${year}-${month}.xlsx`);
+
+        // Send the Excel file as a response
+        res.send(excelBuffer);
+    } catch (err) {
+        console.error('Error exporting reports to XLSX:', err);
         res.status(500).send('Internal Server Error');
     }
 });
