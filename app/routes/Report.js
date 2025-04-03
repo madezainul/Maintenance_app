@@ -41,7 +41,7 @@ router.post('/create', async (req, res) => {
     } catch (err) {
         console.error('Error creating report:', err);
         req.flash('warning', 'An issue occurred while adding the report. Please try again.');
-        res.redirect('/report/report_add');
+        res.redirect(`/report/report_page`);
     }
 });
 
@@ -53,7 +53,7 @@ router.post('/update', async (req, res) => {
         const existingReport = await ReportDetail.getone('id', id);
         if (!existingReport) {
             req.flash('warning', 'The requested report was not found.');
-            return res.redirect('/report/report_detail');
+            return res.redirect('/report/report_page');
         }
 
         // Prepare the updated report data
@@ -83,7 +83,7 @@ router.post('/update', async (req, res) => {
     } catch (err) {
         console.error('Error updating report:', err);
         req.flash('warning', 'An issue occurred while updating the report. Please try again.');
-        res.redirect('/report/report_detail');
+        res.redirect(`/report/report_detail/${moment(date).format('YYYY')}/${moment(date).format('M')}`);
     }
 });
 
@@ -103,11 +103,11 @@ router.get('/delete/:id', async (req, res) => {
 
         // Set success message and redirect
         req.flash('success', 'The report has been successfully deleted.');
-        res.redirect('/report/report_detail');
+        res.redirect(`/report/report_detail/${moment(report.date).format('YYYY')}/${moment(report.date).format('M')}`);
     } catch (err) {
         console.error('Error deleting report:', err);
         req.flash('warning', 'An issue occurred while deleting the report. Please try again.');
-        res.redirect('/report/report_detail');
+        res.redirect(`/report/report_detail/${moment(report.date).format('YYYY')}/${moment(report.date).format('M')}`);
     }
 });
 
