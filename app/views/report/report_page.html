@@ -368,6 +368,23 @@
       });
     });
   </script>
+  <script src="/js/plugin/sweetalert/sweetalert.min.js"></script>
+  <script>
+  <% if (messages.success) { %>
+          Swal.fire(
+              'Berhasil!',
+              '<%= messages.success %>',
+              'success'
+          );
+  <% } %>
+  <% if (messages.warning) { %>
+          Swal.fire(
+              'Peringatan!',
+              '<%= messages.warning %>',
+              'warning'
+          ); 
+  <% } %>
+  </script>
 </body>
 
 </html>
