@@ -23,7 +23,7 @@ const express = require('express'),
 // 		res.render('home/index', context);
 // 	});
 // });
-router.get('/', async (req, res) => {
+router.get('/', Auth.isUser, (req, res) => {
 		let context = {
 			title: 'Home',
 		};

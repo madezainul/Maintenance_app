@@ -20,6 +20,11 @@ CREATE TABLE `users` (
     UNIQUE KEY `email` (`email`)
 )
 
+-- Update usern details
+UPDATE `users`
+SET `full_name` = 'I Made Zainul Muttaqin', `mobile` = '0501546765', `department` = 'MES Department', `position` = 'MES Engineer'
+WHERE `username` = 'Made Zainul';
+
 CREATE TABLE `report_details` (
     `id` int NOT NULL AUTO_INCREMENT,
     `date` date NOT NULL,
