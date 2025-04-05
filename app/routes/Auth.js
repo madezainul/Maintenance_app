@@ -10,13 +10,6 @@ const express = require('express'),
     router = express.Router(),
     encrypt = password => crypto.createHmac('sha256', process.env.SECRET_KEY).update(password).digest('hex');
 
-router.get('/manager', async (req, res) => {
-    let context = {
-        title: 'Manager',
-    };
-    res.render('auth/manager', context);
-});
-
 router.get('/signin', async (req, res) => {
     let context = {
         title: 'Login',
@@ -70,7 +63,7 @@ router.post('/signup', Form.signup, (req, res) => {
             // remove this if the email verification feature was acivated
             verified_at: moment().format('YYYY-MM-DD hh:mm:ss')
         };
-        // Message.activateAccount(email, userData.token);
+        Message.activateAccount(email, userData.token);
         User.add(userData, () => {
             req.flash('success', 'user is successfully registered, please check your email for activate your account');
             res.redirect('/auth/signin');
@@ -108,7 +101,7 @@ router.get('/signout', (req, res) => {
 
 router.get('/forgetpass', async (req, res) => {
     let context = {
-        title: 'Forgot Password',
+        title: 'Forget Password',
     };
     res.render('auth/forgetpass', context);
 });

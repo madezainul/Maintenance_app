@@ -10,7 +10,7 @@ const express = require('express'),
     router = express.Router(),
     encrypt = password => crypto.createHmac('sha256', process.env.SECRET_KEY).update(password).digest('hex');
 
-router.get('/', async (req, res) => {
+router.get('/', Auth.isUser, async (req, res) => {
     User.all((err, rows) => {
         let context = {
             title: 'User Management',

@@ -5,7 +5,7 @@ const express = require('express'),
       fileupload = require('express-fileupload'),
       createError = require('http-errors'),
       path = require('path'),
-      ejs = require('ejs'),
+      ejs = require('ejs-mate'),
       logger = require('morgan'),
       dotenv = require('dotenv'),
       {Run} = require('./config/www'),
@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, 'static')));
 dotenv.config();
 
 app.set('trust proxy', 1);
-app.engine('html', ejs.renderFile)
+app.engine('html', ejs)
 app.set('view engine', 'html')
 app.set('views', path.join(__dirname, 'app/views'))
 
