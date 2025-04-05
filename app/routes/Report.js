@@ -4,7 +4,32 @@ const express = require('express');
 const router = express.Router();
 const moment = require('moment');
 const { ReportDetail } = require('../models/ReportDetailModel');
+const { Auth } = require('../middlewares/Auth');
 const xlsx = require('xlsx');
+
+// Route to handle the report page
+router.get('/', async (req, res) => {
+    try {
+        // Fetch unique year-month data from the database
+        const rows = await ReportDetail.getUniqueYearMonth();
+
+        // Format the data for rendering
+        let context = {
+            title: 'Report Details',
+            reports: rows.map(item => ({
+                ...item,
+                month_name: monthNames[item.month - 1] // Convert month number to name
+            }))
+        };
+
+        // Render the report page
+        res.render('report/index', context);
+    } catch (err) {
+        console.error('Error fetching unique year-month data:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 // Route to handle adding a new report
 router.get('/report_add', async (req, res) => {
