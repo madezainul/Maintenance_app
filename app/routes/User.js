@@ -32,7 +32,7 @@ router.post('/create', Form.createUser, (req, res) => {
     User.check(username, email, (err, userRow) => {
         console.log(userRow);
         if (userRow) {
-            req.flash('warning', 'username atau email sudah ada');
+            req.flash('warning', 'username or email already exists');
             return res.redirect('/user');
         }
         let userData = {
@@ -48,7 +48,7 @@ router.post('/create', Form.createUser, (req, res) => {
         };
         // Message.activateAccount(email, userData.token);
         User.add(userData, () => {
-            req.flash('success', 'user berhasil ditambahkan, silahkan cek email untuk aktivasi akun');
+            req.flash('success', 'user has successfully created, please check your email to activate your account');
             res.redirect('/user');
         });
     });
@@ -61,7 +61,7 @@ router.post('/update', Form.updateUser, (req, res) => {
         if(email != row.email) {
             User.getone('email', email, (err, userRow) => {
                 if (userRow) {
-                    req.flash('warning', 'email sudah ada');
+                    req.flash('warning', 'email already exists');
                     return res.redirect('/user');
                 }
             });
@@ -69,7 +69,7 @@ router.post('/update', Form.updateUser, (req, res) => {
         if(username != row.username) {
             User.getone('username', username, (err, userRow) => {
                 if (userRow) {
-                    req.flash('warning', 'username sudah ada');
+                    req.flash('warning', 'username already exists');
                     return res.redirect('/user');
                 }
             });
@@ -87,7 +87,7 @@ router.post('/update', Form.updateUser, (req, res) => {
         };
         // Message.activateAccount(email, userData.token);
         User.put(userData, () => {
-            req.flash('success', 'data user berhasil diubah, silahkan cek email untuk aktivasi akun anda');
+            req.flash('success', 'user data has successfully updated, please check your email to activate your account');
             return res.redirect('/user');
         });
     })
@@ -96,7 +96,7 @@ router.post('/update', Form.updateUser, (req, res) => {
 router.get('/delete/:id', (req, res) => {
     User.getone('id', req.params.id, (err, userRow) => {
         User.del(req.params.id, () => {
-            req.flash('success', 'data super user berhasil dihapus');
+            req.flash('success', 'super user data has successfully deleted');
             res.redirect('/user');
         });
     });
