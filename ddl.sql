@@ -25,6 +25,14 @@ UPDATE `users`
 SET `full_name` = 'I Made Zainul Muttaqin', `mobile` = '0501546765', `department` = 'MES Department', `position` = 'MES Engineer'
 WHERE `username` = 'Made Zainul';
 
+UPDATE `users`
+SET `role` = 'ADMIN'
+WHERE `id` = 1;
+
+UPDATE `users`
+SET `email` = 'zainul.m@ahqpck.com'
+WHERE `id` = 1;
+
 CREATE TABLE `report_details` (
     `id` int NOT NULL AUTO_INCREMENT,
     `date` date NOT NULL,
