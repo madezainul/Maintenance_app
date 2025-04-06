@@ -122,6 +122,7 @@ router.get('/delete/:id', (req, res) => {
 //     });
 // });
 
+<<<<<<< HEAD
 router.get('/profile', Auth.isUser, (req, res) => {
     let context = {
         title: 'User Profile',
@@ -129,5 +130,7 @@ router.get('/profile', Auth.isUser, (req, res) => {
     };
     res.render('user/profile', context);
 });
+=======
+>>>>>>> 28f48563d9d6c6ab0327341e0268254c688f0bd6
 
 module.exports = router;
