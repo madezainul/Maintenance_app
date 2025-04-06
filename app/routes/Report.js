@@ -6,16 +6,20 @@ const moment = require('moment');
 const { ReportDetail } = require('../models/ReportDetailModel');
 const { Auth } = require('../middlewares/Auth');
 const xlsx = require('xlsx');
+const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+];
 
 // Route to handle the report page
-router.get('/', async (req, res) => {
+router.get('/', Auth.isUser, async (req, res) => {
     try {
         // Fetch unique year-month data from the database
         const rows = await ReportDetail.getUniqueYearMonth();
 
         // Format the data for rendering
         let context = {
-            title: 'Report Details',
+            title: 'Report Lists',
             reports: rows.map(item => ({
                 ...item,
                 month_name: monthNames[item.month - 1] // Convert month number to name
@@ -30,13 +34,31 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:year/:month', Auth.isUser, async (req, res) => {
+    try {
+        const { year, month } = req.params;
 
-// Route to handle adding a new report
-router.get('/report_add', async (req, res) => {
-    res.render('report/report_add', { title: 'Create Report' });
+        // Fetch reports for the specified year and month
+        const rows = await ReportDetail.getdate(year, month);
+
+        // Format the data for rendering
+        let context = {
+            title: 'Report Details',
+            reports: rows.map(row => ({
+                ...row,
+                date: moment(row.date).format('YYYY-MM-DD')
+            }))
+        };
+
+        // Render the report detail page
+        res.render('report/detail', context);
+    } catch (err) {
+        console.error('Error fetching reports by year/month:', err);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
-router.post('/create', async (req, res) => {
+router.post('/create', Auth.isUser, async (req, res) => {
     try {
         console.log(req.body);
         let { date, shift, equipment_name, equipment_id, problem_description, solution_part_replaced, status, start_time, stop_time, total_time_spent, technician_name, supervisor, category } = req.body;
@@ -71,7 +93,7 @@ router.post('/create', async (req, res) => {
     }
 });
 
-router.post('/update', async (req, res) => {
+router.post('/update', Auth.isUser, async (req, res) => {
     try {
         let { id, date, shift, equipment_name, equipment_id, problem_description, solution_part_replaced, status, start_time, stop_time, total_time_spent, technician_name, supervisor, category } = req.body;
 
@@ -113,7 +135,7 @@ router.post('/update', async (req, res) => {
     }
 });
 
-router.get('/delete/:id', async (req, res) => {
+router.get('/delete/:id', Auth.isUser, async (req, res) => {
     try {
         const id = req.params.id;
 
@@ -137,58 +159,8 @@ router.get('/delete/:id', async (req, res) => {
     }
 });
 
-router.get('/report_detail', async (req, res) => {
-    try {
-        // Fetch all reports from the database
-        const rows = await ReportDetail.all();
-
-        // Format the data for rendering
-        let context = {
-            title: 'Report Details',
-            reports: rows.map(row => ({
-                ...row,
-                date: moment(row.date).format('YYYY-MM-DD'),
-                // Uncomment if needed:
-                // start_time: moment(row.start_time).format('hh:mm:ss'),
-                // stop_time: moment(row.stop_time).format('hh:mm:ss')
-            }))
-        };
-
-        // Render the report detail page
-        res.render('report/report_detail', context);
-    } catch (err) {
-        console.error('Error fetching all reports:', err);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-// Dynamic route to fetch reports by year and month
-router.get('/report_detail/:year/:month', async (req, res) => {
-    try {
-        const { year, month } = req.params;
-
-        // Fetch reports for the specified year and month
-        const rows = await ReportDetail.getdate(year, month);
-
-        // Format the data for rendering
-        let context = {
-            title: 'Report Details',
-            reports: rows.map(row => ({
-                ...row,
-                date: moment(row.date).format('YYYY-MM-DD')
-            }))
-        };
-
-        // Render the report detail page
-        res.render('report/report_detail', context);
-    } catch (err) {
-        console.error('Error fetching reports by year/month:', err);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
 // Route to export reports for a specific year and month to XLSX
-router.get('/export/:year/:month', async (req, res) => {
+router.get('/export/:year/:month', Auth.isUser, async (req, res) => {
     try {
         const { year, month } = req.params;
 
@@ -234,34 +206,6 @@ router.get('/export/:year/:month', async (req, res) => {
         res.send(excelBuffer);
     } catch (err) {
         console.error('Error exporting reports to XLSX:', err);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
-const monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-];
-
-// Route to handle the report page
-router.get('/report_page', async (req, res) => {
-    try {
-        // Fetch unique year-month data from the database
-        const rows = await ReportDetail.getUniqueYearMonth();
-
-        // Format the data for rendering
-        let context = {
-            title: 'Report Details',
-            reports: rows.map(item => ({
-                ...item,
-                month_name: monthNames[item.month - 1] // Convert month number to name
-            }))
-        };
-
-        // Render the report page
-        res.render('report/report_page', context);
-    } catch (err) {
-        console.error('Error fetching unique year-month data:', err);
         res.status(500).send('Internal Server Error');
     }
 });

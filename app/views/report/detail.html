@@ -1,0 +1,138 @@
+<%- layout('components/layout') %>
+
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <!-- Card Header -->
+        <div class="card-header pb-0">
+          <div class="row">
+            <div class="col-lg-6 col-7">
+              <h6>Report Data</h6>
+            </div>
+            <div class="col-lg-6 col-5 text-end">
+              <!-- Add Report Button -->
+              <button class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#add-report">
+                <i class="fas fa-plus"></i>&nbsp;Add Report
+              </button>
+
+              <!-- Edit Selected Row Button -->
+              <button id="button-edit" class="btn btn-info me-2">
+                <i class="fas fa-edit"></i>&nbsp;Edit
+              </button>
+
+              <!-- Delete Selected Row Button -->
+              <button id="button-delete" class="btn btn-danger">
+                <i class="fas fa-trash"></i>&nbsp;Delete
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body p-4">
+          <div class="table-responsive" style="font-size: 14px;">
+            <table id="report" class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Shift</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Equipment Name
+                  </th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Equipment ID</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Problem
+                    Description</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Solution & Parts
+                  </th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Start Time</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stop Time</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Time</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Technician Name
+                  </th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Supervisor</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% reports.forEach(function(report) { %>
+                  <tr>
+                    <td style="display: none;">
+                      
+                      <%= report.id %>
+                    
+                    </td>
+                    <td class="td-item">
+                      
+                        <%= report.date %>
+                      
+                    </td>
+                    <td class="td-item">
+                      
+                        <%= report.shift %>
+                      
+                    </td>
+                    <td class="td-item">
+                      
+                        <%= report.equipment_name %>
+                      
+                    </td>
+                    <td class="td-item">
+                      
+                        <%= report.equipment_id %>
+                      
+                    </td>
+                    <td class="td-item">
+                      
+                        <%= report.problem_description %>
+                      
+                    </td>
+                    <td class="td-item">
+                      
+                        <%= report.solution_part_replaced %>
+                      
+                    </td>
+                    <td class="td-item">
+                      <span
+                        class="badge badge-pill badge-sm <%= report.status === 'Done' ? 'bg-gradient-success' : 'bg-gradient-warning' %>">
+                        <%= report.status %>
+                      </span>
+                    </td>
+                    <td class="td-item">
+                      
+                        <%= report.start_time %>
+                      
+                    </td>
+                    <td class="td-item">
+                      
+                        <%= report.stop_time %>
+                      
+                    </td>
+                    <td class="td-item">
+                      
+                        <%= report.total_time_spent %> Hour(s)
+                      
+                    </td>
+                    <td class="td-item">
+                      
+                        <%= report.technician_name %>
+                      
+                    </td>
+                    <td class="td-item">
+                      
+                        <%= report.supervisor %>
+                      
+                    </td>
+                    <td class="td-item">
+                      
+                        <%= report.category %>
+                      
+                    </td>
+                  </tr>
+                  <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

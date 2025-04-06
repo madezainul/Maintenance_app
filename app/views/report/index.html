@@ -1,4 +1,4 @@
-<%- layout('report/layout.html') %>
+<%- layout('components/layout') %>
 
 <div class="row">
     <div class="col-md-12">
@@ -31,7 +31,7 @@
                 <% reports.forEach(function(report) { %>
                   <tr>
                     <td class="td-item">
-                      <a href="/report/report_detail/<%= report.year %>/<%= report.month %>">
+                      <a href="/report/<%= report.year %>/<%= report.month %>">
                         <%= report.year %> <%= report.month_name %>
                       </a>
                     </td>
