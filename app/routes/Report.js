@@ -20,6 +20,8 @@ router.get('/', Auth.isUser, async (req, res) => {
         // Format the data for rendering
         let context = {
             title: 'Report Lists',
+            page: 'Report',
+            user: req.user,
             reports: rows.map(item => ({
                 ...item,
                 month_name: monthNames[item.month - 1] // Convert month number to name
@@ -44,6 +46,8 @@ router.get('/:year/:month', Auth.isUser, async (req, res) => {
         // Format the data for rendering
         let context = {
             title: 'Report Details',
+            page: 'Report',
+            user: req.user,
             reports: rows.map(row => ({
                 ...row,
                 date: moment(row.date).format('YYYY-MM-DD')

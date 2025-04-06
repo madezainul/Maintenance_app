@@ -8,6 +8,7 @@ const express = require('express'),
 router.get('/', Auth.isUser, (req, res) => {
 		let context = {
 			title: 'Home',
+			page: 'Dashboard',
 			user: req.user
 		};
 		res.render('home/index', context);
@@ -24,6 +25,7 @@ router.get('/help', Auth.isUser, async (req, res) => {
 router.get('/profile', Auth.isUser, (req, res) => {
     let context = {
         title: 'User Profile',
+		page: 'Profile',
         user: req.user
     };
     res.render('home/profile', context);

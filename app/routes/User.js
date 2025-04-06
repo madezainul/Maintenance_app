@@ -14,6 +14,7 @@ router.get('/', Auth.isAdmin, async (req, res) => {
     User.all((err, rows) => {
         let context = {
             title: 'User Management',
+            page: 'Users',
             user: req.user,
             users: rows.map(row => {
                 return {
