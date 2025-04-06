@@ -28,12 +28,14 @@ exports.Auth = {
                 req.flash('warning' ,'Account not found');
                 return res.redirect('/auth/signin');
             }
-            if(userRow.role != 'USER') {
-                req.flash('warning', 'Permission denied');
-                return res.redirect('/auth/signin');
+            if(userRow.role == 'USER' || userRow.role == 'ADMIN') {
+                req.user = userRow;
+                next();
             }
-            req.user = userRow;
-            next();
+            else {
+                req.flash('warning', 'Permission denied');
+            return res.redirect('/auth/signin');
+            }
         });
     }
 }
