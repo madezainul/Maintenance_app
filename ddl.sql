@@ -12,7 +12,7 @@ CREATE TABLE `users` (
     `position` varchar(100) DEFAULT NULL,
     `verified_at` datetime DEFAULT NULL,
     `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-    `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `role` enum('ADMIN', 'USER', 'STAFF') DEFAULT 'USER',
     PRIMARY KEY (`id`),
     UNIQUE KEY `employee_id` (`employee_id`),
