@@ -46,6 +46,7 @@
       </footer>
   </main>
 
+  
   <!-- Core JS Files -->
   <script src="/js/core/popper.min.js"></script>
   <script src="/js/core/bootstrap.min.js"></script>
@@ -63,5 +64,22 @@
   </script>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="/js/material-dashboard.min.js?v=3.2.0"></script>
+  <script src="/js/plugin/sweetalert/sweetalert.min.js"></script>
+  <script>
+    <% if(messages.success){ %>
+      Swal.fire(
+        'Success!',
+        '<%= messages.success %>',
+        'success'
+      );
+    <% } %>
+    <% if(messages.warning){ %>
+      Swal.fire(
+        'Warning!',
+        '<%= messages.warning %>',
+        'warning'
+      ); 
+    <% } %>
+  </script>
 </body>
 </html>

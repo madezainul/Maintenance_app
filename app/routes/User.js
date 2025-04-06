@@ -122,12 +122,5 @@ router.get('/delete/:id', (req, res) => {
 //     });
 // });
 
-router.get('/', Auth.isUser, (req, res) => {
-    let context = {
-        title: 'User Profile',
-        user: req.user
-    };
-    res.render('/profile', context);
-});
 
 module.exports = router;

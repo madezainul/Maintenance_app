@@ -19,4 +19,12 @@ router.get('/help', Auth.isUser, async (req, res) => {
 	res.render('home/help', context);
 });
 
+router.get('/profile', Auth.isUser, (req, res) => {
+    let context = {
+        title: 'User Profile',
+        user: req.user
+    };
+    res.render('home/profile', context);
+});
+
 module.exports = router;
