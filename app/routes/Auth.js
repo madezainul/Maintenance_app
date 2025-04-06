@@ -17,7 +17,7 @@ router.get('/signin', async (req, res) => {
     res.render('auth/signin', context);
 });
 
-router.post('/signin', Form.signin, (req, res) => {
+router.post('/signin', Form.nonEmpty, (req, res) => {
     let { identity, password } = req.body;
     User.verify(identity, (err, userRow) => {
         if (!userRow) {
