@@ -5,6 +5,14 @@ const getKeyByValue = (object, value) => {
 }
 
 exports.Form = {
+    nonEmpty: (req, res, path, next) => {
+        if(getKeyByValue(req.body, '')) {
+            req.flash('warning', 'data can not be empty');
+            return res.redirect(path);
+        }
+        next();
+    },
+
     signin: (req, res, next) => {
         if(getKeyByValue(req.body, '')) {
             req.flash('warning', 'data can not be empty');

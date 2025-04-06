@@ -10,10 +10,11 @@ const express = require('express'),
     router = express.Router(),
     encrypt = password => crypto.createHmac('sha256', process.env.SECRET_KEY).update(password).digest('hex');
 
-router.get('/', Auth.isUser, async (req, res) => {
+router.get('/', Auth.isAdmin, async (req, res) => {
     User.all((err, rows) => {
         let context = {
             title: 'User Management',
+            user: req.user,
             users: rows.map(row => {
                 return {
                     ...row, 
@@ -27,7 +28,7 @@ router.get('/', Auth.isUser, async (req, res) => {
     });
 });
 
-router.post('/create', Form.createUser, (req, res) => {
+router.post('/create', Form.createUser, Auth.isAdmin, (req, res) => {
     let { username, email, password, role } = req.body;
     User.check(username, email, (err, userRow) => {
         console.log(userRow);
@@ -54,7 +55,7 @@ router.post('/create', Form.createUser, (req, res) => {
     });
 });
 
-router.post('/update', Form.updateUser, (req, res) => {
+router.post('/update', Form.updateUser, Auth.isAdmin, (req, res) => {
     let { id, username, email, role } = req.body;
     User.getone('id', id, (err, row) => {
         console.log(email != row.email || username != row.username);
@@ -93,7 +94,7 @@ router.post('/update', Form.updateUser, (req, res) => {
     })
 });
 
-router.get('/delete/:id', (req, res) => {
+router.get('/delete/:id', Auth.isAdmin, (req, res) => {
     User.getone('id', req.params.id, (err, userRow) => {
         User.del(req.params.id, () => {
             req.flash('success', 'super user data has successfully deleted');
@@ -121,16 +122,5 @@ router.get('/delete/:id', (req, res) => {
 //         res.render('user/profile', context);
 //     });
 // });
-
-<<<<<<< HEAD
-router.get('/profile', Auth.isUser, (req, res) => {
-    let context = {
-        title: 'User Profile',
-        user: req.user
-    };
-    res.render('user/profile', context);
-});
-=======
->>>>>>> 28f48563d9d6c6ab0327341e0268254c688f0bd6
 
 module.exports = router;
