@@ -47,6 +47,10 @@
                                     </th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Activation
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Action
                                     </th>
                                 </tr>
@@ -89,17 +93,22 @@
                                             </span>
                                         </td>
                                         <td class="align-middle text-center">
+                                            <div class="form-check form-switch d-flex justify-content-center">
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="">
+                                            </div>
+                                        </td>
+                                        <td class="align-middle text-center">
                                             <div class="form-button-action">
                                                 <a class="open-edit-superuser btn btn-primary btn-sm"
                                                     data-bs-toggle="modal" data-bs-target="#edit-superuser"
                                                     data-id="<%= user.id %>" data-username="<%= user.username %>"
                                                     data-email="<%= user.email %>" data-role="<%= user.role %>">
-                                                    <i class="material-symbols-rounded">edit_square</i>&nbsp;Edit
+                                                    &nbsp;Edit
                                                 </a>
                                                 <a class="open-delete-superuser btn btn-danger btn-sm ml-2"
                                                     data-bs-toggle="modal" href="#delete-superuser"
                                                     data-id="<%= user.id %>" data-username="<%= user.username %>">
-                                                    <i class="fas fa-heart"></i>&nbsp;Delete
+                                                    &nbsp;Delete
                                                 </a>
                                             </div>
                                         </td>
@@ -255,22 +264,28 @@
         </div>
     </div>
     <script>
+        document.addEventListener('click', function (event) {
+            // Open Edit Superuser Modal
+            if (event.target.matches('.open-edit-superuser')) {
+                const id = event.target.dataset.id;
+                const username = event.target.dataset.username;
+                const email = event.target.dataset.email;
+                const role = event.target.dataset.role;
 
-        $(document).on('click', '.open-edit-superuser', function () {
-            var id = $(this).data('id');
-            var username = $(this).data('username');
-            var email = $(this).data('email');
-            var role = $(this).data('role');
-            $('.modal-body #id').val(id);
-            $('.modal-body #username').val(username);
-            $('.modal-body #email').val(email);
-            $('.modal-body #role').val(role);
-        });
-        $(document).on('click', '.open-delete-superuser', function () {
-            var id = $(this).data('id');
-            var username = $(this).data('username');
-            $('.modal-body .id').attr('href', '/user/delete/' + id);
-            $('.modal-body #username').html(username.toLowerCase());
+                document.querySelector('.modal-body #id').value = id;
+                document.querySelector('.modal-body #username').value = username;
+                document.querySelector('.modal-body #email').value = email;
+                document.querySelector('.modal-body #role').value = role;
+            }
+
+            // Open Delete Superuser Modal
+            if (event.target.matches('.open-delete-superuser')) {
+                const id = event.target.dataset.id;
+                const username = event.target.dataset.username;
+
+                document.querySelector('.modal-body .id').href = '/user/delete/' + id;
+                document.querySelector('.modal-body #username').textContent = username.toLowerCase();
+            }
         });
     </script>
     </body>

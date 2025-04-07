@@ -10,6 +10,7 @@ CREATE TABLE `users` (
     `mobile` varchar(100) DEFAULT NULL,
     `department` varchar(100) DEFAULT NULL,
     `position` varchar(100) DEFAULT NULL,
+    `activated` BOOLEAN DEFAULT FALSE,
     `verified_at` datetime DEFAULT NULL,
     `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
     `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
