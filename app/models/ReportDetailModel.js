@@ -101,5 +101,20 @@ exports.ReportDetail = {
             console.error('Error in getUniqueYearMonth:', err);
             throw err; // Propagate the error to the caller
         }
+    },
+    getByDateRange: async (start_date, end_date) => {
+        try {
+            const sql = `
+                SELECT * 
+                FROM report_details 
+                WHERE date BETWEEN ? AND ?
+                ORDER BY date ASC;
+            `;
+            const [rows] = await Connector.promise().query(sql, [start_date, end_date]);
+            return rows; // Return all matching rows
+        } catch (err) {
+            console.error('Error in getByDateRange:', err);
+            throw err; // Propagate the error to the caller
+        }
     }
 };

@@ -15,6 +15,29 @@
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link id="pagestyle" href="/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
+  <!-- DataTables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css">
+  <style>
+    .dt-paging-button {
+      padding: 0px !important;
+    }
+
+    #dt-search-0 {
+      border: 1px solid #ccc !important;
+      border-radius: 4px !important;
+    }
+
+    #dt-search-0:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    }
+    .td-item {
+      font-size: 0.75rem; /* Small font size */
+    font-weight: 700;   /* Bold font */
+    margin-bottom: 0;
+    }
+  </style>
 </head>
 <body class="g-sidenav-show bg-gray-100">
   <!-- Sidebar -->
@@ -50,6 +73,7 @@
   <!-- Core JS Files -->
   <script src="/js/core/popper.min.js"></script>
   <script src="/js/core/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
   <script src="/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="/js/plugins/chartjs.min.js"></script>
@@ -64,6 +88,108 @@
   </script>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <script src="/js/material-dashboard.min.js?v=3.2.0"></script>
+  <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+  <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.js"></script>
+  <script>
+    $(document).ready(function () {
+      const table = new DataTable('#report', {
+        columns: [
+        { data: 'id' },
+          { data: 'date' },
+          { data: 'shift' },
+          { data: 'equipment_name' },
+          { data: 'equipment_id' },
+          { data: 'problem_description' },
+          { data: 'solution_part_replaced' },
+          { data: 'status' },
+          { data: 'start_time' },
+          { data: 'stop_time' },
+          { data: 'total_time_spent' },
+          { data: 'technician_name' },
+          { data: 'supervisor' },
+          { data: 'category' }
+        ]
+      });
+      //handle the delete button
+      table.on('click', 'tbody tr', (e) => {
+        let classList = e.currentTarget.classList;
+
+        if (classList.contains('selected')) {
+          classList.remove('selected');
+        } else {
+          table.rows('.selected').nodes().each((row) => {
+
+            row.classList.remove('selected')
+          });
+          classList.add('selected');
+        }
+      });
+
+      document.querySelector('#button-delete').addEventListener('click', function () {
+        // table.row('.selected').remove().draw(false);
+        const selectedRow = table.row('.selected').data();
+        if (!selectedRow) {
+          alert('Please select a row to delete');
+          return;
+        }
+        console.log(selectedRow);
+        $('#report-date').html(selectedRow.date);
+        $('#delete-report').modal('show');
+        $('#click-delete').attr('href', '/report/delete/' + selectedRow.id);
+      });
+
+      //handle the Edit button
+      document.querySelector('#button-edit').addEventListener('click', function () {
+        const selectedRow = table.row('.selected').data();
+        if (!selectedRow) {
+          alert('Please select a row to edit');
+          return;
+        }
+
+        //populate the form with the selected row data
+        $('#id').val(selectedRow.id);
+        $('#date').val(selectedRow.date);
+        $('#shift').val(selectedRow.shift);
+        $('#equipment_name').val(selectedRow.equipment_name);
+        $('#equipment_id').val(selectedRow.equipment_id);
+        $('#problem_description').val(selectedRow.problem_description);
+        $('#solution_part_replaced').val(selectedRow.solution_part_replaced);
+        $('#status').val(selectedRow.status);
+        $('#start_time').val(selectedRow.start_time);
+        $('#stop_time').val(selectedRow.stop_time);
+        $('#total_time_spent').val(selectedRow.total_time_spent);
+        $('#technician_name').val(selectedRow.technician_name);
+        $('#supervisor').val(selectedRow.supervisor);
+        $('#category').val(selectedRow.category);
+
+        // show the modal
+        $('#editModal').modal('show');
+      });
+
+    });
+  </script>
+  <script>
+    $(document).ready(function () {
+      $('#report-index').DataTable({
+        // "ajax": "/api/reports", // URL to fetch data (uncomment if needed)
+        "columns": [
+            { 
+                "data": "year", // Combined year and month_name (visible column)
+            },
+            { 
+                "data": "month", // Hidden column for sorting
+                "visible": false 
+            },
+            { 
+                "data": "export", // Combined year and month_name (visible column)
+                "orderable": false
+            }
+        ],
+        // Sort by Year (desc) and Month (desc)
+        "order": [[1, 'desc'], [0, 'desc']] // Primary sort by hidden month, secondary by year // Sort by the first column (index 0) in descending order
+      });
+    });
+  </script>
   <script src="/js/plugin/sweetalert/sweetalert.min.js"></script>
   <script>
     <% if(messages.success){ %>

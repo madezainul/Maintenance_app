@@ -23,41 +23,44 @@
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Username
-                                    </th>
+                                        Employee ID</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Username</th>
                                     <th
                                         class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                        Email
-                                    </th>
+                                        Email</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Role
-                                    </th>
+                                        Role</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Creation Time
-                                    </th>
+                                        Creation Time</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Verification Time
-                                    </th>
+                                        Verification Time</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Update Time
-                                    </th>
+                                        Update Time</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Activation
-                                    </th>
+                                        Activation</th>
                                     <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Action
-                                    </th>
+                                        Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <% users.forEach(function(user) { %>
                                     <tr>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">
+                                                        <%= user.employee_id %>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
@@ -93,19 +96,22 @@
                                             </span>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <div class="form-check form-switch d-flex justify-content-center">
-                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="">
-                                            </div>
+                                            <!-- Activation Badge -->
+                                            <% if (user.activated) { %>
+                                                <span class="badge bg-success text-xs">Activated</span>
+                                                <% } else { %>
+                                                    <span class="badge bg-danger text-xs">Deactivated</span>
+                                                    <% } %>
                                         </td>
                                         <td class="align-middle text-center">
                                             <div class="form-button-action">
-                                                <a class="open-edit-superuser btn btn-primary btn-sm"
+                                                <a class="open-edit-superuser btn btn-primary m-0"
                                                     data-bs-toggle="modal" data-bs-target="#edit-superuser"
-                                                    data-id="<%= user.id %>" data-username="<%= user.username %>"
-                                                    data-email="<%= user.email %>" data-role="<%= user.role %>">
+                                                    data-id="<%= user.id %>" data-employee_id="<%= user.employee_id %>" data-username="<%= user.username %>"
+                                                    data-email="<%= user.email %>" data-role="<%= user.role %>" data-activated="<%= user.activated %>">
                                                     &nbsp;Edit
                                                 </a>
-                                                <a class="open-delete-superuser btn btn-danger btn-sm ml-2"
+                                                <a class="open-delete-superuser btn btn-danger ml-2 m-0"
                                                     data-bs-toggle="modal" href="#delete-superuser"
                                                     data-id="<%= user.id %>" data-username="<%= user.username %>">
                                                     &nbsp;Delete
@@ -137,24 +143,30 @@
                 <!-- Modal Body -->
                 <form action="/user/create" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
+                        <!-- Employee ID -->
+                        <div class="input-group input-group-outline mb-3">
+                            <label class="form-label">Employee ID</label>
+                            <input name="employee_id" type="text" class="form-control" required />
+                        </div>
+                
                         <!-- Username -->
                         <div class="input-group input-group-outline mb-3">
                             <label class="form-label">Username</label>
                             <input name="username" type="text" class="form-control" required />
                         </div>
-
+                
                         <!-- Email -->
                         <div class="input-group input-group-outline mb-3">
                             <label class="form-label">Email</label>
                             <input name="email" type="email" class="form-control" required />
                         </div>
-
+                
                         <!-- Password -->
                         <div class="input-group input-group-outline mb-3">
                             <label class="form-label">Password</label>
                             <input name="password" type="password" class="form-control" required />
                         </div>
-
+                
                         <!-- Role -->
                         <div class="input-group input-group-outline mb-3">
                             <select name="role" class="form-control" required>
@@ -164,18 +176,15 @@
                                 <option value="USER">USER</option>
                             </select>
                         </div>
-
-                        <!-- Terms and Conditions -->
-                        <div class="form-check form-check-info text-start ps-0">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked
-                                required />
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Saya menyetujui <a href="javascript:;" class="text-dark font-weight-bolder">Syarat dan
-                                    Ketentuan</a>
-                            </label>
+                
+                        <!-- Activation Toggle (Left-Aligned) -->
+                        <div class="form-check form-switch d-flex align-items-center mb-3">
+                            <input class="form-check-input me-2" type="checkbox" id="flexSwitchCheckDefault"
+                                name="activated" value="true" />
+                            <label class="form-check-label mt-2" for="flexSwitchCheckDefault">Activate User</label>
                         </div>
                     </div>
-
+                
                     <!-- Modal Footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -204,6 +213,13 @@
                 <form action="/user/update" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id" />
+
+                        <!-- Employee ID -->
+                        <p class="mb-0"><label class="form-label">Employee ID</label></p>
+                        <div class="input-group input-group-outline mb-3">
+                            <input name="employee_id" id="employee_id" type="text" class="form-control" required />
+                        </div>
+
                         <!-- Username -->
                         <p class="mb-0"><label class="form-label">Username</label></p>
                         <div class="input-group input-group-outline mb-3">
@@ -225,6 +241,17 @@
                                 <option value="STAFF">STAFF</option>
                                 <option value="USER">USER</option>
                             </select>
+                        </div>
+                        <!-- Activation Toggle (Left-Aligned) -->
+                        <div class="form-check form-switch d-flex align-items-center mb-3">
+                            <input 
+                                class="form-check-input me-2" 
+                                type="checkbox" 
+                                id="activated" 
+                                name="activated" 
+                                value="1"
+                            />
+                            <label class="form-check-label mt-2" for="activated">Activate User</label>
                         </div>
                     </div>
 
@@ -258,35 +285,43 @@
                 <!-- Modal Footer -->
                 <div class="modal-footer" style="border-top: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <a type="button" class="btn btn-danger" href="#">Hapus</a>
+                    <a type="button" class="btn btn-danger" href="" id="id">Hapus</a>
                 </div>
             </div>
         </div>
     </div>
     <script>
         document.addEventListener('click', function (event) {
-            // Open Edit Superuser Modal
-            if (event.target.matches('.open-edit-superuser')) {
-                const id = event.target.dataset.id;
-                const username = event.target.dataset.username;
-                const email = event.target.dataset.email;
-                const role = event.target.dataset.role;
+        // Open Edit Superuser Modal
+        if (event.target.matches('.open-edit-superuser')) {
+            const id = event.target.dataset.id;
+            const employee_id = event.target.dataset.employee_id;
+            const username = event.target.dataset.username;
+            const email = event.target.dataset.email;
+            const role = event.target.dataset.role;
+            const activated = event.target.dataset.activated;
 
-                document.querySelector('.modal-body #id').value = id;
-                document.querySelector('.modal-body #username').value = username;
-                document.querySelector('.modal-body #email').value = email;
-                document.querySelector('.modal-body #role').value = role;
-            }
+            // Populate form fields
+            document.querySelector('#edit-superuser #id').value = id;
+            document.querySelector('#edit-superuser #employee_id').value = employee_id;
+            document.querySelector('#edit-superuser #username').value = username;
+            document.querySelector('#edit-superuser #email').value = email;
+            document.querySelector('#edit-superuser #role').value = role;
 
-            // Open Delete Superuser Modal
-            if (event.target.matches('.open-delete-superuser')) {
-                const id = event.target.dataset.id;
-                const username = event.target.dataset.username;
+            // Set the activation toggle
+            const activatedCheckbox = document.querySelector('#edit-superuser #activated');
+            activatedCheckbox.checked = activated == '1' ? true : false;
+        }
 
-                document.querySelector('.modal-body .id').href = '/user/delete/' + id;
-                document.querySelector('.modal-body #username').textContent = username.toLowerCase();
-            }
-        });
+        // Open Delete Superuser Modal
+        if (event.target.matches('.open-delete-superuser')) {
+            const id = event.target.dataset.id;
+            const username = event.target.dataset.username;
+            document.querySelector('#delete-superuser #id').href = '/user/delete/' + id;
+            document.querySelector('#delete-superuser #username').textContent = username.toLowerCase()
+            console.log(document.querySelector('#delete-superuser #username'))
+        }
+    });
     </script>
     </body>
 
