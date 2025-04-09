@@ -87,6 +87,9 @@ router.post('/create', Auth.isUser, async (req, res) => {
         }
 
         // Prepare the report data
+        let totalHours = Math.floor(total_time_spent);
+        let totalMinutes = Math.round((total_time_spent - totalHours) * 60);
+
         let reportData = {
             date: date,
             shift: shift,
@@ -97,7 +100,7 @@ router.post('/create', Auth.isUser, async (req, res) => {
             status: status,
             start_time: start_time,
             stop_time: stop_time,
-            total_time_spent: total_time_spent.toFixed(2), // Format to 2 decimal places
+            total_time_spent: `${totalHours}h ${totalMinutes}m`, // Format as hours and minutes
             technician_name: technician_name,
             supervisor: supervisor,
             category: category
@@ -147,6 +150,9 @@ router.post('/update', Auth.isUser, async (req, res) => {
         }
 
         // Prepare the updated report data
+        let totalHours = Math.floor(total_time_spent);
+        let totalMinutes = Math.round((total_time_spent - totalHours) * 60);
+
         let reportData = {
             id: id,
             date: date,
@@ -158,7 +164,7 @@ router.post('/update', Auth.isUser, async (req, res) => {
             status: status,
             start_time: start_time,
             stop_time: stop_time,
-            total_time_spent: total_time_spent,
+            total_time_spent: `${totalHours}h ${totalMinutes}m`, // Format as hours and minutes
             technician_name: technician_name,
             supervisor: supervisor,
             category: category

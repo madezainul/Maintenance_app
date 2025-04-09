@@ -21,9 +21,11 @@
             </button>
 
             <!-- Delete Selected Row Button -->
-            <button id="button-delete" class="btn btn-danger">
-              <i class="fas fa-trash"></i>&nbsp;Delete
-            </button>
+            <% if (user.role == 'ADMIN') { %>
+              <button id="button-delete" class="btn btn-danger">
+                <i class="fas fa-trash"></i>&nbsp;Delete
+              </button>
+            <% } %>
           </div>
         </div>
       </div>
@@ -109,7 +111,7 @@
                   </td>
                   <td class="td-item">
 
-                    <%= report.total_time_spent %> Hour(s)
+                    <%= report.total_time_spent %>
 
                   </td>
                   <td class="td-item">
