@@ -105,6 +105,12 @@
                                         </td>
                                         <td class="align-middle text-center">
                                             <div class="form-button-action">
+                                                <a class="open-reset-password btn btn-warning m-0" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#reset-password-modal" 
+                                                    data-id="<%= user.id %>">
+                                                        &nbsp;Reset Password
+                                                    </a>
                                                 <a class="open-edit-superuser btn btn-primary m-0"
                                                     data-bs-toggle="modal" data-bs-target="#edit-superuser"
                                                     data-id="<%= user.id %>" data-employee_id="<%= user.employee_id %>" data-username="<%= user.username %>"
@@ -290,6 +296,47 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="reset-password-modal" tabindex="-1" role="dialog" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-normal" id="resetPasswordModalLabel">Reset Password</h5>
+                    <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- Modal Body -->
+                <form action="/user/reset-password" method="POST" id="reset-password-form">
+                    <div class="modal-body">
+                        <!-- Hidden Input for ID -->
+                        <input type="hidden" name="id" id="reset-password-id" />
+                        
+                        <!-- Password Field -->
+                        <div class="input-group input-group-outline mb-3">
+                            <label class="form-label">New Password</label>
+                            <input name="password" id="new-password" type="password" class="form-control" required />
+                        </div>
+                        
+                        <!-- Confirm Password Field -->
+                        <div class="input-group input-group-outline mb-3">
+                            <label class="form-label">Confirm Password</label>
+                            <input name="confirm_password" id="confirm-password" type="password" class="form-control" required />
+                        </div>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn bg-gradient-warning" id="change-password-btn">
+                            <i class="fas fa-key"></i>&nbsp;Change
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('click', function (event) {
         // Open Edit Superuser Modal
@@ -322,6 +369,46 @@
             console.log(document.querySelector('#delete-superuser #username'))
         }
     });
+    </script>
+    <script>
+        document.addEventListener('click', function (event) {
+            // Open Reset Password Modal
+            if (event.target.matches('.open-reset-password')) {
+                const id = event.target.dataset.id;
+                // Populate hidden input with user ID
+                document.querySelector('#reset-password-id').value = id;
+            }
+    
+            // Handle Form Submission for Reset Password
+            document.getElementById('reset-password-form').addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent default form submission
+    
+                const newPassword = document.getElementById('new-password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+    
+                // Validate Password Length and Match
+                if (newPassword.length < 8) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Password Reset Failed',
+                        text: 'Password must be at least 8 characters long.',
+                    });
+                    return;
+                }
+    
+                if (newPassword !== confirmPassword) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Password Reset Failed',
+                        text: 'Passwords do not match.',
+                    });
+                    return;
+                }
+    
+                // If validation passes, submit the form
+                this.submit();
+            });
+        });
     </script>
     </body>
 
