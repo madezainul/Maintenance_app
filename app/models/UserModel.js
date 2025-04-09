@@ -93,5 +93,16 @@ exports.User = {
             console.error('Error in getall:', err);
             throw err; // Propagate the error to the caller
         }
+    },
+
+    // Update the password of a user by ID
+    updatePassword: async (id, password) => {
+        try {
+            const sql = `UPDATE users SET password = ? WHERE id = ?`;
+            await Connector.promise().query(sql, [password, id]);
+        } catch (err) {
+            console.error('Error in updatePassword:', err);
+            throw err; // Propagate the error to the caller
+        }
     }
 };

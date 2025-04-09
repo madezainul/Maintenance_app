@@ -154,4 +154,30 @@ router.get('/delete/:id', Auth.isAdmin, async (req, res) => {
     }
 });
 
+// Reset Password for a User
+router.post('/reset-password', Form.resetPass, Auth.isAdmin, async (req, res) => {
+    try {
+        const { id, password } = req.body;
+
+        // Fetch the user by ID
+        const user = await User.getone('id', id);
+        if (!user) {
+            req.flash('error', 'User not found');
+            return res.redirect('/user');
+        }
+
+        // Encrypt the new password
+        const encryptedPassword = encrypt(password);
+
+        // Update the user's password in the database
+        await User.updatePassword(id, encryptedPassword);
+        req.flash('success', 'Password has been successfully reset');
+        res.redirect('/user');
+    } catch (error) {
+        console.error('Error resetting password:', error);
+        req.flash('error', 'Failed to reset password');
+        res.redirect('/user');
+    }
+});
+
 module.exports = router;
